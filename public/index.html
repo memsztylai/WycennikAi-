@@ -1,0 +1,35 @@
+<!doctype html><html lang="pl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081b20"><meta name="description" content="MemskyAI WycennikAI — transkrypcja rozmów i karta ustaleń AI LIVE">
+<title>MemskyAI — WycennikAI LIVE 0.5.0</title><link rel="stylesheet" href="./styles.css">
+</head><body><main class="shell">
+<header class="top"><div class="brand">MEMSKY<b>AI</b> <span style="font-weight:400;font-size:15px">/ WYCENNIK<b>AI</b></span></div><div class="version" id="edition">v0.5.0</div></header>
+<h1>Rozmowa → transkrypcja → karta AI</h1>
+<p class="intro">Tryb przeglądarkowy lub bezpieczniejsze operacyjnie rozpoznawanie mowy przez serwer. Analiza AI działa bez zatrzymywania nasłuchu, gdy PIN jest poprawnie skonfigurowany.</p>
+<div class="grid">
+<section class="card"><h2>1. Serwer i dostęp</h2>
+<label for="pin">PIN testowy (min. 8 znaków; NIE klucz API)</label><input id="pin" type="password" autocomplete="off" spellcheck="false" placeholder="PIN z Netlify → Environment variables" minlength="8">
+<div class="row"><button class="secondary" id="check">✓ Sprawdź PIN i serwer</button><button class="secondary" id="forgetPin">Usuń PIN z tej karty</button></div>
+<div id="connection" class="status" role="status">Serwer: sprawdzanie…</div><div class="muted" id="serverDetails">Dostęp do Groq jest realizowany wyłącznie po stronie funkcji Netlify.</div>
+</section>
+<section class="card"><h2>2. Rozmowa</h2>
+<label for="lang">Język rozmowy</label><select id="lang"><option value="pl-PL">🇵🇱 Polski</option><option value="nl-NL">🇳🇱 Niderlandzki</option><option value="en-GB">🇬🇧 Angielski</option><option value="de-DE">🇩🇪 Niemiecki</option></select>
+<label for="mode">Silnik transkrypcji</label><select id="mode"><option value="cloud">🎧 STT Groq — segmenty ~14 s (zalecany Android)</option><option value="browser">📱 Web Speech — szybki, zależny od przeglądarki</option></select>
+<div class="row"><button id="start">🎙 START</button><button id="pause" class="secondary" disabled>⏸ PAUZA</button><button id="stop" class="danger" disabled>■ STOP</button><button id="retryAudio" class="secondary hide" type="button">↻ Ponów STT</button></div>
+<div id="recordStatus" class="status" role="status">Mikrofon: gotowy</div><div class="muted" id="audioStatus">Chmura przetwarza krótkie próbki na bieżąco; to nie jest strumieniowanie słowo po słowie.</div>
+</section>
+<section class="card wide"><h2>3. Transkrypcja <span class="state-badge counter" id="count">0 znaków</span></h2>
+<div class="box" id="text" aria-live="polite">Tutaj pojawi się tekst rozmowy.</div><div id="message" role="status" class="status"></div>
+<div class="row"><button class="secondary" id="export">↓ TXT</button><button class="secondary" id="edit">✎ Edytuj tekst</button><button class="secondary" id="clear">🆕 Nowa rozmowa</button></div>
+<textarea id="editor" class="hide" aria-label="Edytor transkrypcji"></textarea><button id="save" class="hide">Zapisz korektę</button>
+</section>
+<section class="card wide"><h2>4. AI LIVE — ustalenia</h2>
+<label class="live-flag"><input type="checkbox" id="liveEnabled" checked>Analizuj nowe fragmenty automatycznie</label>
+<div class="row"><button id="analyze">🧠 Analizuj teraz</button><button id="resetAI" class="secondary">↺ Resetuj analizę</button></div>
+<div id="liveStatus" role="status" class="status">AI: gotowe</div>
+<div id="analysis" class="box analysis" aria-live="polite">Po zatwierdzeniu fragmentu zobaczysz ustalenia i najważniejsze pytania.</div>
+<div class="row"><button id="exportCard" class="secondary" disabled>↓ JSON</button><button id="exportCardTxt" class="secondary" disabled>↓ Karta TXT</button></div>
+</section></div>
+<p class="warn"><strong>PRYWATNOŚĆ / TESTY:</strong> przed nagrywaniem rozmów wymagane jest odpowiednie poinformowanie uczestników i uzyskanie niezbędnej zgody oraz ocena podstawy prawnej przetwarzania. Tryb Web Speech może wysyłać audio do dostawcy przeglądarki; tryb Groq STT wysyła kilkunastosekundowe próbki dźwięku przez serwer Netlify do Groq. AI wysyła tekst do Groq. Dźwięk nie jest trwale zapisywany przez aplikację; transkrypcję przechowuje ona lokalnie w przeglądarce. Testować na danych fikcyjnych.</p>
+<footer>MemskyAI · WycennikAI · prototyp 0.5.0. Brak diarizacji, wycen i gwarancji poprawności. Telefon musi pozostać aktywny, ekran odblokowany i strona otwarta; blokada iPhone/Android może wstrzymać nasłuch.</footer>
+</main><script type="module" src="./app.mjs"></script></body></html>
