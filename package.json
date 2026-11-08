@@ -1,0 +1,8 @@
+{
+  "name":"memskyai-wycennikai-netlify",
+  "private":true,
+  "version":"0.5.0",
+  "description":"MemskyAI WycennikAI LIVE - Netlify Functions / Groq / browser and cloud STT",
+  "type":"module",
+  "scripts":{"test":"node --test tests/*.test.mjs","check":"npm run test && node --check public/app.mjs && node --check public/audio.mjs && node --check public/ai.mjs"}
+}
